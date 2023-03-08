@@ -18,6 +18,12 @@ app.get("/", async (req, res) => {
   res.send(JSON.stringify(rows));
 });
 
+app.post("/", async (req, res) => {
+  await pool.query(`INSERT INTO todos (text) VALUES ${req.body.text}`);
+  const { rows } = await pool.query("SELECT * FROM todos");
+  res.send(JSON.stringify(rows));
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
