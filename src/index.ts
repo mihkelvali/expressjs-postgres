@@ -14,12 +14,11 @@ app.use(express.json());
 
 app.get("/", async (req, res) => {
   const { rows } = await pool.query("SELECT * FROM todos;");
-  console.log(rows);
   res.send(JSON.stringify(rows));
 });
 
 app.post("/", async (req, res) => {
-  await pool.query(`INSERT INTO todos (text) VALUES "${req.body.text}";`);
+  await pool.query(`INSERT INTO todos (text) VALUES ('${req.body.text}');`);
   const { rows } = await pool.query("SELECT * FROM todos");
   res.send(JSON.stringify(rows));
 });
